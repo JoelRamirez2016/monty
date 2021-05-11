@@ -1,5 +1,8 @@
 #include "monty.h"
-#include <string.h>
+
+void exeMonty(char *l);
+void free_stack(stack_t **stack);
+stack_t *stack;
 
 int main(int argc, char *argv[])
 {
@@ -10,21 +13,39 @@ int main(int argc, char *argv[])
 
 	while (fgets(line, 255, (FILE*)fp))
 	{
-		exe(line);
-		strcat(buff, line);		
+		exeMonty(line);
 	}
 
+	free_stack(&stack);
 	fclose(fp);
 	return (0);
 }
 
-void exe(char *l)
+void exeMonty(char *l)
 {
-	instruction_t instructions[3] = {
+	instruction_t instructions[] = {
 		{"push", push}, 
-		{"pall", pall}
+		{"pall", pall},
 		{0, 0}
 	};
+	int i;
+	char *opcode = strtok(l, " \n");
+	char *arg = strtok(0, " \n");
 
+	for (i = 0; instructions[i].opcode; i++)
+		if(strcmp(instructions[i].opcode, opcode) == 0)
+			instructions[i].f(&stack, arg ? atoi(arg) : 0);
 
+}
+
+void free_stack(stack_t **stack)
+{
+	stack_t *curr = *stack, *next;
+
+	while (curr)
+        {
+		next = curr->next;
+		free(curr);
+		curr = next;
+        }
 }
