@@ -45,19 +45,19 @@ char **_strtok(char *string, const char delim)
 		return (NULL);
 	while (*string == delim)
 		string++;
-	for (; string[indstr]; indstr++)
+	for (; string[indstr]; indstr++) /* cuenta palabras */
 		if (string[indstr] == delim)
 		{
 			delcount++;
 			while (string[indstr] == delim)
 				indstr++;
 		}
-	token = malloc(sizeof(char *) * delcount);
+	token = malloc(sizeof(char *) * (delcount + 1));
 
-	for (indstr = 0; string[indstr]; indstr++)
+	for (indstr = 0; string[indstr]; indstr++) /* malloc de letras */
 		if (string[indstr] == delim || string[indstr + 1] == '\0')
 		{
-			token[indword] = malloc(sizeof(char) * indletter);
+			token[indword] = malloc(sizeof(char) * indletter + 1);
 			indword++;
 			indletter = 0;
 			while (string[indstr + 1] == delim)
@@ -66,16 +66,20 @@ char **_strtok(char *string, const char delim)
 		else
 			indletter++;
 	indword = 0, indletter = 0;
-	   for (indstr = 0; string[indstr]; indstr++)
+	for (indstr = 0; string[indstr]; indstr++) /* asigna letras */
                 if (string[indstr] == delim)
                 {
+			token[indword][indletter] = 0;
                         indword++;
                         indletter = 0;
                         while (string[indstr + 1] == delim)
                                 indstr++;
                 }
                 else
+		{
 			token[indword][indletter] = string[indstr];
                         indletter++;
+		}
+	token[delcount] = 0;
 	return (token);
 }
