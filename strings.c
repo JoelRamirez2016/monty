@@ -39,27 +39,43 @@ int _strcmp(char *string, char *string2)
 char **_strtok(char *string, const char delim)
 {
 	char **token;
-	int indletter = 0, indword = 0, indstr = 0;
+	int indletter = 0, indword = 0, indstr = 0, delcount = 1;
 
 	if (string == NULL || delim == '\0')
 		return (NULL);
-
-	if (string[indstr] == delim)
-		while (string[indstr] == delim)
-			indstr++;
-
+	while (*string == delim)
+		string++;
 	for (; string[indstr]; indstr++)
 		if (string[indstr] == delim)
 		{
-			indword++;
-			indletter = 0;
+			delcount++;
 			while (string[indstr] == delim)
 				indstr++;
 		}
-		else
+	token = malloc(sizeof(char *) * delcount);
+
+	for (indstr = 0; string[indstr]; indstr++)
+		if (string[indstr] == delim || string[indstr + 1] == '\0')
 		{
-			token[indword][indletter] = string[indstr];
-			indletter++;
+			token[indword] = malloc(sizeof(char) * indletter);
+			indword++;
+			indletter = 0;
+			while (string[indstr + 1] == delim)
+				indstr++;
 		}
+		else
+			indletter++;
+	indword = 0, indletter = 0;
+	   for (indstr = 0; string[indstr]; indstr++)
+                if (string[indstr] == delim)
+                {
+                        indword++;
+                        indletter = 0;
+                        while (string[indstr + 1] == delim)
+                                indstr++;
+                }
+                else
+			token[indword][indletter] = string[indstr];
+                        indletter++;
 	return (token);
 }
