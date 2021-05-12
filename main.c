@@ -1,7 +1,6 @@
 #include "monty.h"
 
 void exeMonty(char *l);
-void free_stack(stack_t **stack);
 stack_t *stack;
 
 int main(int argc, char *argv[])
@@ -26,26 +25,20 @@ void exeMonty(char *l)
 	instruction_t instructions[] = {
 		{"push", push}, 
 		{"pall", pall},
+		{"pint", pint},
+		{"swap", swap},
+		{"pop", pop},
+		{"add", add},
+		{"nop", nop},
 		{0, 0}
 	};
 	int i;
-	char *opcode = strtok(l, " \n");
-	char *arg = strtok(0, " \n");
+	char *opcode;
+	char *arg;
 
+	opcode = strtok(l, " \n");
+	arg = strtok(0, " \n");
 	for (i = 0; instructions[i].opcode; i++)
 		if(strcmp(instructions[i].opcode, opcode) == 0)
 			instructions[i].f(&stack, arg ? atoi(arg) : 0);
-
-}
-
-void free_stack(stack_t **stack)
-{
-	stack_t *curr = *stack, *next;
-
-	while (curr)
-        {
-		next = curr->next;
-		free(curr);
-		curr = next;
-        }
 }
