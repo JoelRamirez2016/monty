@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
  * _strlen - return length of string
  * @string: string
@@ -19,67 +18,107 @@ size_t _strlen(const char *string)
  * @string2: second string
  * Return: 0 if equal, 1 if different
  */
-int _strcmp(char *string, char *string2)
+int _strcmp(char *s1, char *s2)
 {
-	while ((*string != '\0' && *string2 != '\0') && (*string == *string2))
+	while (*s1)
 	{
-		string++;
-		string2++;
+		if (*s1 != *s2)
+			break;
+		s1++;
+		s2++;
 	}
-	if (*string == *string2)
-		return (0);
-	return (1);
+	return *s1 - *s2;
 }
+
 /**
- * _strtok - splits string into multiple arguments
- * @string: string
- * @delim: word separator
+ * _split - create a array of strings
+ * @s: string to split
+ * @ds: delimiters of the strings
  * Return: array of strings
  */
-char **_strtok(char *string, const char delim)
+char **_split(char *s, char *ds)
 {
-	char **token;
-	int indletter = 0, indword = 0, indstr = 0, delcount = 1;
+	int lenA = 0, i = 0, j = 0, k = 0, w = 0;
+	char **array;
 
-	if (string == NULL || delim == '\0')
-		return (NULL);
-	while (*string == delim)
-		string++;
-	for (; string[indstr]; indstr++) /* cuenta palabras */
-		if (string[indstr] == delim)
-		{
-			delcount++;
-			while (string[indstr] == delim)
-				indstr++;
-		}
-	token = malloc(sizeof(char *) * (delcount + 1));
+	for (i = 0; s && s[i]; i++)
+		if ((!strchr(ds, s[i]) && strchr(ds, s[i + 1])) ||
+		(!strchr(ds, s[i]) && !s[i + 1]))
+			lenA += 1;
 
-	for (indstr = 0; string[indstr]; indstr++) /* malloc de letras */
-		if (string[indstr] == delim || string[indstr + 1] == '\0')
+	array = malloc(sizeof(*array) * lenA + 1);
+
+	if (!array)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	array[lenA] = 0;
+
+	for (i = 0; s && s[i]; i++)
+	{
+		if ((strchr(ds, s[i]) && !strchr(ds, s[i + 1])) ||
+		(!strchr(ds, s[i]) && i == 0))
 		{
-			token[indword] = malloc(sizeof(char) * indletter + 1);
-			indword++;
-			indletter = 0;
-			while (string[indstr + 1] == delim)
-				indstr++;
+			j = i + 1;
+
+			while (!strchr(ds, s[j]))
+				j++;
+			j += i == 0 ? 1 : 0;
+
+			array[k] = malloc(sizeof(char) * (j - i));
+			if (!array)
+			{
+				fprintf(stderr, "Error: malloc failed\n");
+				free_split(array, k);
+				exit(EXIT_FAILURE);
+			}
+			array[k][j - i - 1] = 0;
+			j = i == 0 ? 0 : i + 1;
+
+			while (!strchr(ds, s[j]))
+			{
+				w = i == 0 ? j - i : j - i - 1;
+				array[k][w] = s[j++];
+			}
+			k++;
 		}
-		else
-			indletter++;
-	indword = 0, indletter = 0;
-	for (indstr = 0; string[indstr]; indstr++) /* asigna letras */
-                if (string[indstr] == delim)
-                {
-			token[indword][indletter] = 0;
-                        indword++;
-                        indletter = 0;
-                        while (string[indstr + 1] == delim)
-                                indstr++;
-                }
-                else
-		{
-			token[indword][indletter] = string[indstr];
-                        indletter++;
-		}
-	token[delcount] = 0;
-	return (token);
+	}
+	return (array);
+}
+
+/**
+ * _strchr - locates a character in a string
+ * @s: pointer to check value
+ * @c: char search in s
+ * Return: pointer with value updated.
+*/
+
+char *_strchr(char *s, char c)
+{
+	int i;
+
+	for (i = 0; s[i] >= '\0'; i++)
+		if (s[i] == c)
+			return (s + i);
+	return ('\0');
+}
+
+void free_split(char **s, int len)
+{
+	int i;
+
+	for (i = 0; i < len; i++)
+		free(s[i]);
+	free(s);
+}
+
+int is_number(char *s)
+{
+	int i;
+
+	for (i = 0; s && s[i]; i++)
+		if (!(s[i] == '-' && i == 0) && (s[i] < '0' || s[i] > '9'))
+			return (0);
+	return (1);
 }
