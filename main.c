@@ -59,11 +59,15 @@ void exeMonty(char *l)
 	for (i = 0; instructions[i].opcode; i++)
 		if(strcmp(instructions[i].opcode, opcode) == 0)
 			instructions[i].f(&stack, arg ? atoi(arg) : 0);
+
 	for (i = 0; i < 2; i++) 
 		free(args[i]);
 	free(args);
 
 	if (!instructions[i].opcode)
-	{}
+	{
+		fprintf(stderr, "L<%s>: unknown instruction <opcode>\n", opcode);
+		exit(EXIT_FAILURE);
+	}
 
 }
