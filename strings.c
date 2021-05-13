@@ -30,56 +30,47 @@ int _strcmp(char *string, char *string2)
 		return (0);
 	return (1);
 }
+
 /**
- * _strtok - splits string into multiple arguments
- * @string: string
- * @delim: word separator
+ * _split - create a array of strings
+ * @s: string to split
+ * @ds: delimiters of the strings
  * Return: array of strings
  */
-char **_strtok(char *string, const char delim)
+char **_split(char *s, char *ds)
 {
-	char **token;
-	int indletter = 0, indword = 0, indstr = 0, delcount = 1;
+	int lenA = 0, i = 0, j = 0, k = 0, w = 0;
+	char **array;
 
-	if (string == NULL || delim == '\0')
-		return (NULL);
-	while (*string == delim)
-		string++;
-	for (; string[indstr]; indstr++) /* cuenta palabras */
-		if (string[indstr] == delim)
-		{
-			delcount++;
-			while (string[indstr] == delim)
-				indstr++;
-		}
-	token = malloc(sizeof(char *) * (delcount + 1));
+	for (i = 0; s && s[i]; i++)
+		if ((!strchr(ds, s[i]) && strchr(ds, s[i + 1])) ||
+		(!strchr(ds, s[i]) && !s[i + 1]))
+			lenA += 1;
+	array = malloc(sizeof(*array) * lenA + 1);
+	array[lenA] = 0;
 
-	for (indstr = 0; string[indstr]; indstr++) /* malloc de letras */
-		if (string[indstr] == delim || string[indstr + 1] == '\0')
+	for (i = 0; s && s[i]; i++)
+	{
+		if ((strchr(ds, s[i]) && !strchr(ds, s[i + 1])) ||
+		(!strchr(ds, s[i]) && i == 0))
 		{
-			token[indword] = malloc(sizeof(char) * indletter + 1);
-			indword++;
-			indletter = 0;
-			while (string[indstr + 1] == delim)
-				indstr++;
+			j = i + 1;
+
+			while (!strchr(ds, s[j]))
+				j++;
+			j += i == 0 ? 1 : 0;
+
+			array[k] = malloc(sizeof(char) * (j - i));
+			array[k][j - i] = 0;
+			j = i == 0 ? 0 : i + 1;
+
+			while (!strchr(ds, s[j]))
+			{
+				w = i == 0 ? j - i : j - i - 1;
+				array[k][w] = s[j++];
+			}
+			k++;
 		}
-		else
-			indletter++;
-	indword = 0, indletter = 0;
-	for (indstr = 0; string[indstr]; indstr++) /* asigna letras */
-                if (string[indstr] == delim)
-                {
-			token[indword][indletter] = 0;
-                        indword++;
-                        indletter = 0;
-                        while (string[indstr + 1] == delim)
-                                indstr++;
-                }
-                else
-		{
-			token[indword][indletter] = string[indstr];
-                        indletter++;
-		}
-	token[delcount] = 0;
-	return (token);
+	}
+	return (array);
 }

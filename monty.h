@@ -27,4 +27,6 @@ void nop(stack_t **stack, unsigned int line_number);
 size_t _strlen(const char *string);
 int _strcmp(char *string, char *string2);
 char **_strtok(char *string, const char delim);
+char **_split(char *s, char *ds);
+
 #endif

@@ -8,7 +8,18 @@ int main(int argc, char *argv[])
 	FILE *fp;
 	char buff[1024], line[255];
 
-	fp = fopen("bytecodes.m", "r");
+	if (argc != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	fp = fopen(argv[1], "r");
+
+	if(!fp)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
 
 	while (fgets(line, 255, (FILE*)fp))
 	{
@@ -35,10 +46,19 @@ void exeMonty(char *l)
 	int i;
 	char *opcode;
 	char *arg;
+	char **args = _split(l, " \n");
 
-	opcode = strtok(l, " \n");
-	arg = strtok(0, " \n");
+	opcode = args[0];
+	arg = args[1];
+
 	for (i = 0; instructions[i].opcode; i++)
 		if(strcmp(instructions[i].opcode, opcode) == 0)
 			instructions[i].f(&stack, arg ? atoi(arg) : 0);
+	for (i = 0; i < 2; i++) 
+		free(args[i]);
+	free(args);
+
+	if (!instructions[i].opcode)
+	{}
+
 }
