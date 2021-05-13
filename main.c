@@ -2,8 +2,6 @@
 
 char **file_tokens;
 int exeMonty(char *l, stack_t **stack, int line_n);
-int error_checker(stack_t **stack, char *opcode, int line_n);
-int is_number(char *s);
 
 /**
  * main - interpreter of monty bytecodes
@@ -65,6 +63,7 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	opcode = file_tokens[0];
 
 	for (i = 0; instructions[i].opcode; i++)
+	{
 		if (_strcmp(instructions[i].opcode, opcode) == 0)
 		{
 			status = error_checker(stack, opcode, line_n);
@@ -73,9 +72,9 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 				instructions[i].f(stack, line_n);							
 			break;
 		}
-
+	}
 	if (!instructions[i].opcode)
-		status = error_checker(stack, "unknown", line_n);
+		status = error_checker(stack, opcode , line_n);
 
 	for (i = 0; i < 2; i++)
 		free(file_tokens[i]);

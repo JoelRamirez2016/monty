@@ -10,23 +10,32 @@
  */
 int error_checker(stack_t **stack, char *opcode, int line_n)
 {
-	if (_strcmp(opcode, "unknown") == 0)
-	{
-		fprintf(stderr, "L<%i>: unknown instruction <%s>\n", line_n, opcode);
-		return (EXIT_FAILURE);
-	}
+	int status = EXIT_SUCCESS;
+
 	if (_strcmp(opcode, "push") == 0)
+	{
 		if ( !file_tokens[1] || !is_number(file_tokens[1]))
 		{
 			fprintf(stderr, "L<%u>: usage: push integer\n", line_n);
-			return (EXIT_FAILURE);
+			status = EXIT_FAILURE;
 		}
-	if (_strcmp(opcode, "pint") == 0)
+	}
+	else if (_strcmp(opcode, "pall") == 0)
+	{
+	}
+	else if (_strcmp(opcode, "pint") == 0)
+	{
 		if (!*stack)
 		{
 			fprintf(stderr, "L<%u>: can't pint, stack empty\n", line_n);
-			return (EXIT_FAILURE);
+			status = EXIT_FAILURE;
                 }
+	}
+	else
+	{
+		fprintf(stderr, "L<%i>: unknown instruction <%s>\n", line_n, opcode);
+		status = EXIT_FAILURE;
+	}
 
-	return (EXIT_SUCCESS);
+	return (status);
 }

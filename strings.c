@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
  * _strlen - return length of string
  * @string: string
@@ -19,16 +18,16 @@ size_t _strlen(const char *string)
  * @string2: second string
  * Return: 0 if equal, 1 if different
  */
-int _strcmp(char *string, char *string2)
+int _strcmp(char *s1, char *s2)
 {
-	while ((*string != '\0' && *string2 != '\0') && (*string == *string2))
+	while (*s1)
 	{
-		string++;
-		string2++;
+		if (*s1 != *s2)
+			break;
+		s1++;
+		s2++;
 	}
-	if (*string == *string2)
-		return (0);
-	return (1);
+	return *s1 - *s2;
 }
 
 /**
@@ -43,8 +42,8 @@ char **_split(char *s, char *ds)
 	char **array;
 
 	for (i = 0; s && s[i]; i++)
-		if ((!_strchr(ds, s[i]) && _strchr(ds, s[i + 1])) ||
-		(!_strchr(ds, s[i]) && !s[i + 1]))
+		if ((!strchr(ds, s[i]) && strchr(ds, s[i + 1])) ||
+		(!strchr(ds, s[i]) && !s[i + 1]))
 			lenA += 1;
 
 	array = malloc(sizeof(*array) * lenA + 1);
@@ -58,12 +57,12 @@ char **_split(char *s, char *ds)
 
 	for (i = 0; s && s[i]; i++)
 	{
-		if ((_strchr(ds, s[i]) && !_strchr(ds, s[i + 1])) ||
-		(!_strchr(ds, s[i]) && i == 0))
+		if ((strchr(ds, s[i]) && !strchr(ds, s[i + 1])) ||
+		(!strchr(ds, s[i]) && i == 0))
 		{
 			j = i + 1;
 
-			while (!_strchr(ds, s[j]))
+			while (!strchr(ds, s[j]))
 				j++;
 			j += i == 0 ? 1 : 0;
 
@@ -77,7 +76,7 @@ char **_split(char *s, char *ds)
 			array[k][j - i - 1] = 0;
 			j = i == 0 ? 0 : i + 1;
 
-			while (!_strchr(ds, s[j]))
+			while (!strchr(ds, s[j]))
 			{
 				w = i == 0 ? j - i : j - i - 1;
 				array[k][w] = s[j++];
