@@ -1,7 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
 #include "stack.h"
-#include <string.h>
 
 /**
  * struct instruction_s - opcode and its function
@@ -37,6 +36,7 @@ int _strcmp(char *string, char *string2);
 char **_strtok(char *string, const char delim);
 char **_split(char *s, char *ds);
 void free_split(char **s, int len);
+char *_strchr(char *s, char c);
 int is_number(char *s);
 int error_checker(stack_t **stack, char *opcode, int line_n);
 #endif

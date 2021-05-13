@@ -65,7 +65,7 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	opcode = file_tokens[0];
 
 	for (i = 0; instructions[i].opcode; i++)
-		if (strcmp(instructions[i].opcode, opcode) == 0)
+		if (_strcmp(instructions[i].opcode, opcode) == 0)
 		{
 			status = error_checker(stack, opcode, line_n);
 
