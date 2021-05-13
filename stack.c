@@ -1,5 +1,9 @@
 #include "stack.h"
-
+/**
+ * add_node_stack - adds a new node to the stack
+ * @stack: stack
+ * @line_number: second argument of input
+ */
 void add_node_stack(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new = malloc(sizeof(stack_t));
@@ -19,7 +23,10 @@ void add_node_stack(stack_t **stack, unsigned int line_number)
 		*stack = new;
 }
 
-
+/**
+ * delete_node_stack - deletes a node in the stack
+ * @stack: stack
+ */
 void delete_node_stack(stack_t **stack)
 {
 	stack_t *curr = *stack;
@@ -34,6 +41,10 @@ void delete_node_stack(stack_t **stack)
 	free(curr);
 }
 
+/**
+ * free_stack - frees stack
+ * @stack: stack
+ */
 void free_stack(stack_t **stack)
 {
 	stack_t *curr = *stack, *next;

@@ -69,12 +69,12 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 			status = error_checker(stack, opcode, line_n);
 
 			if (status != EXIT_FAILURE)
-				instructions[i].f(stack, line_n);							
+				instructions[i].f(stack, line_n);
 			break;
 		}
 	}
 	if (!instructions[i].opcode)
-		status = error_checker(stack, opcode , line_n);
+		status = error_checker(stack, opcode, line_n);
 
 	for (i = 0; i < 2; i++)
 		free(file_tokens[i]);
