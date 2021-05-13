@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	char *line = NULL;
 	size_t size_l, lN = 0;
 	stack_t *stack = 0;
-	int status, chars;
+	int status = 0, chars = 0;/*, i;*/
 
 	if (argc != 2)
 	{
@@ -30,9 +30,15 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	while ((chars = getline(&line, &size_l, fp)) != EOF)
+	{
+/*		printf("size_l %i, chars %i\n", (int) size_l, (int) chars);
+		printf("line: \n");
+		for (i = 0; line[i]; i++)
+			printf("hex:%x c:%c\n", line[i], line[i]);
+*/
 		if ((status = exeMonty(line, &stack, ++lN)) == EXIT_FAILURE)
 			break;
-
+	}
 	free(line);
 	free_stack(&stack);
 	fclose(fp);
@@ -59,6 +65,7 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	int i, status = 0;
 	char *opcode;
 
+
 	file_tokens = _split(l, " \n");
 	opcode = file_tokens[0];
 
@@ -76,9 +83,6 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	if (!instructions[i].opcode)
 		status = error_checker(stack, opcode , line_n);
 
-	for (i = 0; i < 2; i++)
-		free(file_tokens[i]);
-	free(file_tokens);
-
+	free_split(file_tokens, 2);
 	return (status);
 }

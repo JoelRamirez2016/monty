@@ -14,7 +14,7 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 
 	if (_strcmp(opcode, "push") == 0)
 	{
-		if ( !file_tokens[1] || !is_number(file_tokens[1]))
+		if (!file_tokens[1] || !is_number(file_tokens[1]))
 		{
 			fprintf(stderr, "L<%u>: usage: push integer\n", line_n);
 			status = EXIT_FAILURE;

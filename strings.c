@@ -38,55 +38,50 @@ int _strcmp(char *s1, char *s2)
  */
 char **_split(char *s, char *ds)
 {
-	int lenA = 0, i = 0, j = 0, k = 0, w = 0;
-	char **array;
+        int lenA = 0, i = 0, j = 0, k = 0, w = 0;
+        char **array;
 
-	for (i = 0; s && s[i]; i++)
-		if ((!strchr(ds, s[i]) && strchr(ds, s[i + 1])) ||
-		(!strchr(ds, s[i]) && !s[i + 1]))
-			lenA += 1;
+        for (i = 0; s && s[i]; i++)
+                if ((!_strchr(ds, s[i]) && _strchr(ds, s[i + 1])) ||
+                (!_strchr(ds, s[i]) && !s[i + 1]))
+                        lenA += 1;
 
-	array = malloc(sizeof(*array) * lenA + 1);
+        array = malloc(sizeof(*array) * lenA + 1);
 
-	if (!array)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	array[lenA] = 0;
+        if (!array)
+        {
+                fprintf(stderr, "Error: malloc failed\n");
+                exit(EXIT_FAILURE);
+        }
 
-	for (i = 0; s && s[i]; i++)
-	{
-		if ((strchr(ds, s[i]) && !strchr(ds, s[i + 1])) ||
-		(!strchr(ds, s[i]) && i == 0))
-		{
-			j = i + 1;
-
-			while (!strchr(ds, s[j]))
-				j++;
-			j += i == 0 ? 1 : 0;
-
-			array[k] = malloc(sizeof(char) * (j - i));
-			if (!array)
-			{
-				fprintf(stderr, "Error: malloc failed\n");
-				free_split(array, k);
-				exit(EXIT_FAILURE);
-			}
-			array[k][j - i - 1] = 0;
-			j = i == 0 ? 0 : i + 1;
-
-			while (!strchr(ds, s[j]))
-			{
-				w = i == 0 ? j - i : j - i - 1;
-				array[k][w] = s[j++];
-			}
-			k++;
-		}
-	}
-	return (array);
+        for (k = 0; k < lenA; k++)
+        {
+                i = j == 0 ? 0 : j + 1;
+                j = i;
+                while (s[j])
+                    if ((!_strchr(ds, s[j]) && _strchr(ds, s[j + 1])) ||
+                    (!_strchr(ds, s[j]) && !s[j + 1]))
+                        break;
+                    else
+                        j++;
+                j++; 
+                array[k] = malloc(sizeof(char) * (j - i + 1));
+                
+                while (i <= j)
+                {
+                    if (!_strchr(ds, s[i]))
+                    {
+                        array[k][w] = s[i];
+                        w++;
+                    }
+                    i++;
+                }
+                array[k][w] = 0;
+                w = 0;
+        }
+        array[k] = 0;
+        return (array);
 }
-
 /**
  * _strchr - locates a character in a string
  * @s: pointer to check value
@@ -97,11 +92,10 @@ char **_split(char *s, char *ds)
 char *_strchr(char *s, char c)
 {
 	int i;
-
-	for (i = 0; s[i] >= '\0'; i++)
+	for (i = 0; s && s[i]; i++)
 		if (s[i] == c)
 			return (s + i);
-	return ('\0');
+	return (0);
 }
 
 void free_split(char **s, int len)
