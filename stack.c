@@ -24,6 +24,7 @@ void delete_node_stack(stack_t **stack)
 	if(*stack)
 	{
 		*stack = (*stack)->next;
+		(*stack)->prev = NULL;
 		free(curr);
 	}
 }
