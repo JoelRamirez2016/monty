@@ -61,7 +61,7 @@ char **_split(char *s, char *ds)
 			j += i == 0 ? 1 : 0;
 
 			array[k] = malloc(sizeof(char) * (j - i));
-			array[k][j - i] = 0;
+			array[k][j - i - 1] = 0;
 			j = i == 0 ? 0 : i + 1;
 
 			while (!strchr(ds, s[j]))
