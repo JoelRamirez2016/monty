@@ -34,13 +34,18 @@ int main(int argc, char *argv[])
 void exeMonty(char *l)
 {
 	instruction_t instructions[] = {
-		{"push", push}, 
+		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
 		{"swap", swap},
 		{"pop", pop},
 		{"add", add},
 		{"nop", nop},
+		{"sub", sub},
+		{"div", _div},
+		{"mul", mul},
+		{"mod", mod},
+		{"pchar", pchar},
 		{0, 0}
 	};
 	int i;
