@@ -15,13 +15,13 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 		fprintf(stderr, "L<%i>: unknown instruction <%s>\n", line_n, opcode);
 		return (EXIT_FAILURE);
 	}
-	else if (_strcmp(opcode, "push") == 0)
+	if (_strcmp(opcode, "push") == 0)
 		if ( !file_tokens[1] || !is_number(file_tokens[1]))
 		{
 			fprintf(stderr, "L<%u>: usage: push integer\n", line_n);
 			return (EXIT_FAILURE);
 		}
-	else if (_strcmp(opcode, "pint") == 0)
+	if (_strcmp(opcode, "pint") == 0)
 		if (!*stack)
 		{
 			fprintf(stderr, "L<%u>: can't pint, stack empty\n", line_n);

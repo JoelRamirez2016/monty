@@ -15,10 +15,9 @@ int main(int argc, char *argv[])
 {
 	FILE *fp;
 	char *line = NULL;
-	size_t size_l, chars,lN = 0;
+	size_t size_l, lN = 0;
 	stack_t *stack = 0;
-	char line_n;
-	int status;
+	int status, chars;
 
 	if (argc != 2)
 	{
@@ -60,11 +59,10 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 		{0, 0}
 	};
 	int i, status = 0;
-	char *opcode, *arg;
+	char *opcode;
 
 	file_tokens = _split(l, " \n");
 	opcode = file_tokens[0];
-	arg = file_tokens[1];
 
 	for (i = 0; instructions[i].opcode; i++)
 		if (strcmp(instructions[i].opcode, opcode) == 0)

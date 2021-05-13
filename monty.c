@@ -5,7 +5,7 @@
  * @stack: stack
  * @line_number: second argument of input
  */
-void push(stack_t **stack, unsigned int line_number)
+void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	add_node_stack(stack, atoi(file_tokens[1]));
 }
@@ -14,7 +14,7 @@ void push(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void pall(stack_t **stack, unsigned int line_number)
+void pall(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *curr = *stack;
 
@@ -29,7 +29,7 @@ void pall(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void pint(stack_t **stack, unsigned int line_number)
+void pint(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	printf("%i\n", (*stack)->n);
 }
@@ -38,7 +38,7 @@ void pint(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void pop(stack_t **stack, unsigned int line_number)
+void pop(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	delete_node_stack(stack);
 }
@@ -47,7 +47,7 @@ void pop(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void swap(stack_t **stack, unsigned int line_number)
+void swap(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	stack_t *old_next;
 
@@ -67,7 +67,7 @@ void swap(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void add(stack_t **stack, unsigned int line_number)
+void add(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	if (*stack && (*stack)->next)
 	{
@@ -85,7 +85,8 @@ void add(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void nop(stack_t **stack, unsigned int line_number)
+void nop(__attribute__((unused)) stack_t **stack,
+	__attribute__((unused)) unsigned int line_number)
 {
 }
 /**
@@ -93,7 +94,7 @@ void nop(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void sub(stack_t **stack, unsigned int line_number)
+void sub(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
         if (*stack && (*stack)->next)
         {
@@ -111,7 +112,7 @@ void sub(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void _div(stack_t **stack, unsigned int line_number)
+void _div(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
         if (*stack && (*stack)->next)
         {
@@ -134,7 +135,7 @@ void _div(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void mul(stack_t **stack, unsigned int line_number)
+void mul(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
         if (*stack && (*stack)->next)
         {
@@ -152,7 +153,7 @@ void mul(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void mod(stack_t **stack, unsigned int line_number)
+void mod(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
         if (*stack && (*stack)->next)
         {
@@ -175,7 +176,7 @@ void mod(stack_t **stack, unsigned int line_number)
  * @stack: stack
  * @line_number: second argument of input
  */
-void pchar(stack_t **stack, unsigned int line_number)
+void pchar(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	if (*stack)
 	{
