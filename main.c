@@ -1,13 +1,24 @@
 #include "monty.h"
 
-void exeMonty(char *l);
-stack_t *stack;
+char **file_tokens;
+int exeMonty(char *l, stack_t **stack, int line_n);
+int error_checker(stack_t **stack, char *opcode, int line_n);
+int is_number(char *s);
 
+/**
+ * main - interpreter of monty bytecodes
+ * @argc: number of arguments of the program
+ * @argv: arguments of the program
+ * Return: 0 if success, EXIT_FAILURE otherwise
+ */
 int main(int argc, char *argv[])
 {
 	FILE *fp;
 	char *line = NULL;
-	size_t size_l, chars;
+	size_t size_l, chars,lN = 0;
+	stack_t *stack = 0;
+	char line_n;
+	int status;
 
 	if (argc != 2)
 	{
@@ -18,21 +29,20 @@ int main(int argc, char *argv[])
 
 	if (!fp)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[2]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 	while ((chars = getline(&line, &size_l, fp)) != EOF)
-	{
-		exeMonty(line);
-	}
+		if ((status = exeMonty(line, &stack, ++lN)) == EXIT_FAILURE)
+			break;
 
 	free(line);
 	free_stack(&stack);
 	fclose(fp);
-	return (0);
+	return (status);
 }
 
-void exeMonty(char *l)
+int exeMonty(char *l, stack_t **stack, int line_n)
 {
 	instruction_t instructions[] = {
 		{"push", push},
@@ -49,26 +59,29 @@ void exeMonty(char *l)
 		{"pchar", pchar},
 		{0, 0}
 	};
-	int i;
-	char *opcode;
-	char *arg;
-	char **args = _split(l, " \n");
+	int i, status = 0;
+	char *opcode, *arg;
 
-	opcode = args[0];
-	arg = args[1];
+	file_tokens = _split(l, " \n");
+	opcode = file_tokens[0];
+	arg = file_tokens[1];
 
 	for (i = 0; instructions[i].opcode; i++)
 		if (strcmp(instructions[i].opcode, opcode) == 0)
-			instructions[i].f(&stack, arg ? atoi(arg) : 0);
+		{
+			status = error_checker(stack, opcode, line_n);
 
-	for (i = 0; i < 2; i++)
-		free(args[i]);
-	free(args);
+			if (status != EXIT_FAILURE)
+				instructions[i].f(stack, line_n);							
+			break;
+		}
 
 	if (!instructions[i].opcode)
-	{
-		fprintf(stderr, "L<%s>: unknown instruction <opcode>\n", opcode);
-		exit(EXIT_FAILURE);
-	}
+		status = error_checker(stack, "unknown", line_n);
 
+	for (i = 0; i < 2; i++)
+		free(file_tokens[i]);
+	free(file_tokens);
+
+	return (status);
 }

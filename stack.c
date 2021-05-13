@@ -24,7 +24,7 @@ void delete_node_stack(stack_t **stack)
 {
 	stack_t *curr = *stack;
 
-	if(!*stack)
+	if (!*stack)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
@@ -43,5 +43,5 @@ void free_stack(stack_t **stack)
 		next = curr->next;
 		free(curr);
 		curr = next;
-        }
+	}
 }

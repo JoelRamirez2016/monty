@@ -74,3 +74,22 @@ char **_split(char *s, char *ds)
 	}
 	return (array);
 }
+
+void free_split(char **s, int len)
+{
+	int i;
+
+	for (i = 0; i < len; i++)
+		free(s[i]);
+	free(s);
+}
+
+int is_number(char *s)
+{
+	int i;
+
+	for (i = 0; s && s[i]; i++)
+		if (!(s[i] == '-' && i == 0) && (s[i] < '0' || s[i] > '9'))
+			return (0);
+	return (1);
+}

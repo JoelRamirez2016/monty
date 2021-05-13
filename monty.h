@@ -17,6 +17,9 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+
+extern char **file_tokens;
+
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
@@ -33,5 +36,7 @@ size_t _strlen(const char *string);
 int _strcmp(char *string, char *string2);
 char **_strtok(char *string, const char delim);
 char **_split(char *s, char *ds);
-
+void free_split(char **s, int len);
+int is_number(char *s);
+int error_checker(stack_t **stack, char *opcode, int line_n);
 #endif

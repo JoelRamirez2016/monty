@@ -7,7 +7,7 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	add_node_stack(stack, line_number);
+	add_node_stack(stack, atoi(file_tokens[1]));
 }
 /**
  * pall - prints all values on the stack starting from the top
