@@ -8,9 +8,7 @@
 void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	if (!add_node_stack(stack, atoi(file_tokens[1])))
-	{
 		file_tokens[2][0] = '1';
-	}
 }
 /**
  * pall - prints all values on the stack starting from the top
@@ -43,5 +41,6 @@ void pint(stack_t **stack, __attribute__((unused)) unsigned int line_number)
  */
 void pop(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
-	delete_node_stack(stack);
+	if (!delete_node_stack(stack))
+		file_tokens[2][0] = '1';
 }
