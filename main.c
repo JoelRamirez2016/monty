@@ -75,16 +75,18 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 
 	for (i = 0; instructions[i].opcode; i++)
 	{
-		if (_strcmp(instructions[i].opcode, opcode) == 0)
-		{
-			status = error_checker(stack, opcode, line_n);
+		printf("ins: %s op: %s\n", instructions[i].opcode, opcode);
+		if (opcode)
+			if (_strcmp(instructions[i].opcode, opcode) == 0)
+			{
+				status = error_checker(stack, opcode, line_n);
 
-			if (status != EXIT_FAILURE)
-				instructions[i].f(stack, line_n);
-			break;
-		}
+				if (status != EXIT_FAILURE)
+					instructions[i].f(stack, line_n);
+				break;
+			}
 	}
-	if (!instructions[i].opcode)
+	if (opcode && !instructions[i].opcode)
 		status = error_checker(stack, opcode, line_n);
 
 	free_split(file_tokens, 2);
