@@ -13,7 +13,8 @@ void swap(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	{
 		old_next = (*stack)->next;
 		(*stack)->next = (*stack)->next->next;
-		(*stack)->next->prev = *stack;
+		if ((*stack)->next)
+			(*stack)->next->prev = *stack;
 		(*stack)->prev = old_next;
 		old_next->next = *stack;
 		old_next->prev = 0;
