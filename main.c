@@ -32,8 +32,10 @@ int main(int argc, char *argv[])
 		status = exeMonty(line, &stack, ++lN);
 
 		if (file_tokens[2][0] == '1' || status == EXIT_FAILURE)
+		{
+			status = EXIT_FAILURE;
 			break;
-
+		}
 		free(file_tokens[2]);
 	}
 	free(line);
