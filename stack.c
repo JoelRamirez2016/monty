@@ -3,14 +3,15 @@
 /**
  * add_node_stack - add node in the stack
  * @stack: stack of vars to add
- * @line_number: number to add in the new node
+ * @number: number to add in the new node
+ * Return: node created
  */
 stack_t *add_node_stack(stack_t **stack, int number)
 {
 	stack_t *new = malloc(sizeof(stack_t));
 
 	if (!new)
-		return(0);
+		return (0);
 
 	new->n = number;
 	new->prev = 0;
@@ -26,6 +27,7 @@ stack_t *add_node_stack(stack_t **stack, int number)
 /**
  * delete_node_stack - delete the fisrt node in the stack
  * @stack: stack of vars to delete
+ * Return: 1 if node is deleted, 0 otherwise
  */
 int delete_node_stack(stack_t **stack)
 {

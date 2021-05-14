@@ -20,7 +20,7 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
-stack_t * add_node_stack(stack_t **stack, int number);
+stack_t *add_node_stack(stack_t **stack, int number);
 int delete_node_stack(stack_t **stack);
 void free_stack(stack_t **stack);
 #endif
