@@ -7,8 +7,16 @@
  */
 void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
-	if (!add_node_stack(stack, atoi(file_tokens[1])))
-		file_tokens[2][0] = '1';
+	if (!is_number(file_tokens[1]))
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		file_tokens[2][0] = EXIT_FAILURE;
+	}
+	else if (!add_node_stack(stack, atoi(file_tokens[1])))
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		file_tokens[2][0] = EXIT_FAILURE;
+	}
 }
 /**
  * pall - prints all values on the stack starting from the top

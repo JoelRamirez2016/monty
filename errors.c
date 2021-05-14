@@ -12,21 +12,16 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 {
 	int status = EXIT_SUCCESS;
 
-	if (opcode && strcmp(opcode, "push") == 0)
-	{
-		if (!file_tokens[1] || !is_number(file_tokens[1]))
-		{
-			fprintf(stderr, "L%u: usage: push integer\n", line_n);
-			status = EXIT_FAILURE;
-		}
-	}
-	else if (opcode && strcmp(opcode, "pop") == 0)
+	if (opcode && strcmp(opcode, "pop") == 0)
         {
 		if (!*stack)
 		{
 			fprintf(stderr, "L%u: can't pop an empty stack\n", line_n);
 			status = EXIT_FAILURE;
 		}
+	}
+	else if (opcode && strcmp(opcode, "push") == 0)
+	{
 	}
 	else if (opcode && strcmp(opcode, "pall") == 0)
 	{
@@ -38,11 +33,6 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 			fprintf(stderr, "L%u: can't pint, stack empty\n", line_n);
 			status = EXIT_FAILURE;
 		}
-	}
-	else
-	{
-		fprintf(stderr, "L%i: unknown instruction %s\n", line_n, opcode);
-		status = EXIT_FAILURE;
 	}
 
 	return (status);
