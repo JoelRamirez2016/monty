@@ -20,7 +20,7 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 			status = EXIT_FAILURE;
 		}
 	}
-	if (opcode && strcmp(opcode, "pop") == 0)
+	else if (opcode && strcmp(opcode, "pop") == 0)
         {
 		if (!*stack)
 		{

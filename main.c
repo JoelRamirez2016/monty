@@ -57,6 +57,7 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
 /*
 *		{"swap", swap},
 *		{"pop", pop},
