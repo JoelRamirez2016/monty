@@ -15,7 +15,7 @@ void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	else if (!add_node_stack(stack, atoi(file_tokens[1])))
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		file_tokens[2][0] = EXIT_FAILURE;
+		file_tokens[2][0] = '1';
 	}
 }
 /**
