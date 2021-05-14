@@ -1,5 +1,4 @@
 #include "monty.h"
-char *file_tokens[2];
 int exeMonty(char *l, stack_t **stack, int line_n);
 
 /**
@@ -32,8 +31,10 @@ int main(int argc, char *argv[])
 	{
 		status = exeMonty(line, &stack, ++lN);
 
-		if (status == EXIT_FAILURE)
+		if (file_tokens[2][0] == '1' || status == EXIT_FAILURE)
 			break;
+
+		free(file_tokens[2]);
 	}
 	free(line);
 	free_stack(&stack);
@@ -65,27 +66,31 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 		{"pchar", pchar},
 		{0, 0}
 	};
-	int i, status = 0;
+	int i;
+	char *status = malloc(sizeof(char));
 	char *opcode;
 	char *arg;
 
 	file_tokens[0] = opcode = strtok(l, " \n");
 	file_tokens[1] = arg = strtok(NULL, " \n");
+	file_tokens[2] = status;
 
 	for (i = 0; instructions[i].opcode; i++)
 	{
 		if (opcode)
 			if (strcmp(instructions[i].opcode, opcode) == 0)
 			{
-				status = error_checker(stack, opcode, line_n);
+				*status = (char) error_checker(stack, opcode, line_n);
 
-				if (status != EXIT_FAILURE)
+				if (*status != EXIT_FAILURE)
 					instructions[i].f(stack, line_n);
+				if (file_tokens[2][0] == '1')
+					fprintf(stderr, "Error: malloc failed\n");
 				break;
 			}
 	}
 	if (opcode && !instructions[i].opcode)
-		status = error_checker(stack, opcode, line_n);
+		*status = (char) error_checker(stack, opcode, line_n);
 
-	return (status);
+	return (*status);
 }
