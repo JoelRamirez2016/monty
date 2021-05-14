@@ -30,11 +30,12 @@ int main(int argc, char *argv[])
 	while (getline(&line, &size_l, fp) != EOF)
 	{
 		status = exeMonty(line, &stack, ++lN);
-		if (!status == EXIT_SUCCESS)
+		if (status != EXIT_SUCCESS)
 		{
 			status = EXIT_FAILURE;
 			break;
 		}
+		free(file_tokens[2]);
 	}
 	free(line);
 	free_stack(&stack);
@@ -78,14 +79,12 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	file_tokens[2][0] = 0;
 
 	for (i = 0; instructions[i].opcode; i++)
-	{
 		if (opcode)
 			if (strcmp(instructions[i].opcode, opcode) == 0)
 			{
 				instructions[i].f(stack, line_n);
 				break;
 			}
-	}
 	if (opcode && !instructions[i].opcode)
 	{
 		fprintf(stderr, "L%i: unknown instruction %s\n", line_n, opcode);
@@ -93,7 +92,7 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	}
 
 	status = (int) file_tokens[2][0];
-	free(file_tokens[2]);
+/*	free(file_tokens[2]);*/
 
 	return (status);
 }
