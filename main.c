@@ -30,14 +30,11 @@ int main(int argc, char *argv[])
 	while (getline(&line, &size_l, fp) != EOF)
 	{
 		status = exeMonty(line, &stack, ++lN);
-
-		if (file_tokens[2][0] == '1' || status == EXIT_FAILURE)
+		if (!status == EXIT_SUCCESS)
 		{
 			status = EXIT_FAILURE;
-			free(file_tokens[2]);
 			break;
 		}
-		free(file_tokens[2]);
 	}
 	free(line);
 	free_stack(&stack);
@@ -71,7 +68,7 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 */
 		{0, 0}
 	};
-	int i;
+	int status, i;
 	char *opcode;
 	char *arg;
 
@@ -86,9 +83,6 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 			if (strcmp(instructions[i].opcode, opcode) == 0)
 			{
 				instructions[i].f(stack, line_n);
-
-				if (file_tokens[2][0] == '1')
-					fprintf(stderr, "Error: malloc failed\n");
 				break;
 			}
 	}
@@ -98,5 +92,8 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 		file_tokens[2][0] = EXIT_FAILURE;
 	}
 
-	return ((int) file_tokens[2][0]);
+	status = (int) file_tokens[2][0];
+	free(file_tokens[2]);
+
+	return (status);
 }
