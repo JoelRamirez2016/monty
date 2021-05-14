@@ -75,6 +75,7 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	char *opcode;
 	char *arg;
 
+	*status = 0;
 	file_tokens[0] = opcode = strtok(l, " \n");
 	file_tokens[1] = arg = strtok(NULL, " \n");
 	file_tokens[2] = status;

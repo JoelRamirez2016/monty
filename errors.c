@@ -16,7 +16,7 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 	{
 		if (!file_tokens[1] || !is_number(file_tokens[1]))
 		{
-			fprintf(stderr, "L<%u>: usage: push integer\n", line_n);
+			fprintf(stderr, "L%u: usage: push integer\n", line_n);
 			status = EXIT_FAILURE;
 		}
 	}
@@ -27,13 +27,13 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 	{
 		if (!*stack)
 		{
-			fprintf(stderr, "L<%u>: can't pint, stack empty\n", line_n);
+			fprintf(stderr, "L%u: can't pint, stack empty\n", line_n);
 			status = EXIT_FAILURE;
 		}
 	}
 	else
 	{
-		fprintf(stderr, "L<%i>: unknown instruction <%s>\n", line_n, opcode);
+		fprintf(stderr, "L%i: unknown instruction %s\n", line_n, opcode);
 		status = EXIT_FAILURE;
 	}
 
