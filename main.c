@@ -75,7 +75,6 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 
 	for (i = 0; instructions[i].opcode; i++)
 	{
-		printf("ins: %s op: %s\n", instructions[i].opcode, opcode);
 		if (opcode)
 			if (_strcmp(instructions[i].opcode, opcode) == 0)
 			{
