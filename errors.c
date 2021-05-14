@@ -20,6 +20,14 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 			status = EXIT_FAILURE;
 		}
 	}
+	if (opcode && strcmp(opcode, "pop") == 0)
+        {
+		if (!*stack)
+		{
+			fprintf(stderr, "L%u: can't pop an empty stack\n", line_n);
+			status = EXIT_FAILURE;
+		}
+	}
 	else if (opcode && strcmp(opcode, "pall") == 0)
 	{
 	}
