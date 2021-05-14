@@ -49,10 +49,7 @@ char **_split(char *s, char *ds)
         array = malloc(sizeof(*array) * lenA + 1);
 
         if (!array)
-        {
-                fprintf(stderr, "Error: malloc failed\n");
-                exit(EXIT_FAILURE);
-        }
+		return (NULL);
 
         for (k = 0; k < lenA; k++)
         {

@@ -1,6 +1,5 @@
 #include "monty.h"
-
-char **file_tokens;
+char *file_tokens[2];
 int exeMonty(char *l, stack_t **stack, int line_n);
 
 /**
@@ -68,15 +67,15 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	};
 	int i, status = 0;
 	char *opcode;
+	char *arg;
 
-
-	file_tokens = _split(l, " \n");
-	opcode = file_tokens[0];
+	file_tokens[0] = opcode = strtok(l, " \n");
+	file_tokens[1] = arg = strtok(NULL, " \n");
 
 	for (i = 0; instructions[i].opcode; i++)
 	{
 		if (opcode)
-			if (_strcmp(instructions[i].opcode, opcode) == 0)
+			if (strcmp(instructions[i].opcode, opcode) == 0)
 			{
 				status = error_checker(stack, opcode, line_n);
 
@@ -88,6 +87,5 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	if (opcode && !instructions[i].opcode)
 		status = error_checker(stack, opcode, line_n);
 
-	free_split(file_tokens, 2);
 	return (status);
 }

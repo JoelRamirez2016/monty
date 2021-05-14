@@ -12,7 +12,7 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 {
 	int status = EXIT_SUCCESS;
 
-	if (opcode && _strcmp(opcode, "push") == 0)
+	if (opcode && strcmp(opcode, "push") == 0)
 	{
 		if (!file_tokens[1] || !is_number(file_tokens[1]))
 		{
@@ -20,10 +20,10 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 			status = EXIT_FAILURE;
 		}
 	}
-	else if (opcode && _strcmp(opcode, "pall") == 0)
+	else if (opcode && strcmp(opcode, "pall") == 0)
 	{
 	}
-	else if (opcode &&_strcmp(opcode, "pint") == 0)
+	else if (opcode && strcmp(opcode, "pint") == 0)
 	{
 		if (!*stack)
 		{
