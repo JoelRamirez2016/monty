@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -19,7 +20,7 @@ typedef struct stack_s
 	struct stack_s *next;
 } stack_t;
 
-void add_node_stack(stack_t **stack, int number);
-void delete_node_stack(stack_t **stack);
+stack_t * add_node_stack(stack_t **stack, int number);
+int delete_node_stack(stack_t **stack);
 void free_stack(stack_t **stack);
 #endif

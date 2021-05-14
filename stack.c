@@ -5,15 +5,12 @@
  * @stack: stack of vars to add
  * @line_number: number to add in the new node
  */
-void add_node_stack(stack_t **stack, int number)
+stack_t *add_node_stack(stack_t **stack, int number)
 {
 	stack_t *new = malloc(sizeof(stack_t));
 
 	if (!new)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+		return(0);
 
 	new->n = number;
 	new->prev = 0;
@@ -22,24 +19,26 @@ void add_node_stack(stack_t **stack, int number)
 	if (*stack)
 		(*stack)->prev = new;
 		*stack = new;
+
+	return (new);
 }
 
 /**
  * delete_node_stack - delete the fisrt node in the stack
  * @stack: stack of vars to delete
  */
-void delete_node_stack(stack_t **stack)
+int delete_node_stack(stack_t **stack)
 {
 	stack_t *curr = *stack;
 
 	if (!*stack)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+		return (0);
+
 	*stack = (*stack)->next;
 	(*stack)->prev = NULL;
 	free(curr);
+
+	return (1);
 }
 /**
  * free_stack - free all memory of the stack
