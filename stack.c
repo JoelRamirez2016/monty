@@ -1,49 +1,52 @@
 #include "stack.h"
+
 /**
- * add_node_stack - adds a new node to the stack
- * @stack: stack
- * @line_number: second argument of input
+ * add_node_stack - add node in the stack
+ * @stack: stack of vars to add
+ * @number: number to add in the new node
+ * Return: node created
  */
-void add_node_stack(stack_t **stack, unsigned int line_number)
+stack_t *add_node_stack(stack_t **stack, int number)
 {
 	stack_t *new = malloc(sizeof(stack_t));
 
 	if (!new)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+		return (0);
 
-	new->n = line_number;
+	new->n = number;
 	new->prev = 0;
 	new->next = *stack;
 
 	if (*stack)
 		(*stack)->prev = new;
 		*stack = new;
+
+	return (new);
 }
 
 /**
- * delete_node_stack - deletes a node in the stack
- * @stack: stack
+ * delete_node_stack - delete the fisrt node in the stack
+ * @stack: stack of vars to delete
+ * Return: 1 if node is deleted, 0 otherwise
  */
-void delete_node_stack(stack_t **stack)
-{
+int delete_node_stack(stack_t **stack)
 	stack_t *curr = *stack;
 
 	if (!*stack)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
-	*stack = (*stack)->next;
-	(*stack)->prev = NULL;
-	free(curr);
-}
+		return (0);
 
+	*stack = (*stack)->next;
+
+	if (*stack)
+		(*stack)->prev = NULL;
+
+	free(curr);
+
+	return (1);
+}
 /**
- * free_stack - frees stack
- * @stack: stack
+ * free_stack - free all memory of the stack
+ * @stack: stack to empty
  */
 void free_stack(stack_t **stack)
 {
