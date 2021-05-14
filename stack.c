@@ -1,6 +1,11 @@
 #include "stack.h"
 
-void add_node_stack(stack_t **stack, unsigned int line_number)
+/**
+ * add_node_stack - add node in the stack
+ * @stack: stack of vars to add
+ * @line_number: number to add in the new node
+ */
+void add_node_stack(stack_t **stack, int number)
 {
 	stack_t *new = malloc(sizeof(stack_t));
 
@@ -10,7 +15,7 @@ void add_node_stack(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	new->n = line_number;
+	new->n = number;
 	new->prev = 0;
 	new->next = *stack;
 
@@ -19,7 +24,10 @@ void add_node_stack(stack_t **stack, unsigned int line_number)
 		*stack = new;
 }
 
-
+/**
+ * delete_node_stack - delete the fisrt node in the stack
+ * @stack: stack of vars to delete
+ */
 void delete_node_stack(stack_t **stack)
 {
 	stack_t *curr = *stack;
@@ -33,7 +41,10 @@ void delete_node_stack(stack_t **stack)
 	(*stack)->prev = NULL;
 	free(curr);
 }
-
+/**
+ * free_stack - free all memory of the stack
+ * @stack: stack to empty
+ */
 void free_stack(stack_t **stack)
 {
 	stack_t *curr = *stack, *next;

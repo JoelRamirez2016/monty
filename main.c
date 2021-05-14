@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 	char *line = NULL;
 	size_t size_l, lN = 0;
 	stack_t *stack = 0;
-	int status = 0, chars = 0;/*, i;*/
+	int status = 0;
 
 	if (argc != 2)
 	{
@@ -29,14 +29,11 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	while ((chars = getline(&line, &size_l, fp)) != EOF)
+	while (getline(&line, &size_l, fp) != EOF)
 	{
-/*		printf("size_l %i, chars %i\n", (int) size_l, (int) chars);
-		printf("line: \n");
-		for (i = 0; line[i]; i++)
-			printf("hex:%x c:%c\n", line[i], line[i]);
-*/
-		if ((status = exeMonty(line, &stack, ++lN)) == EXIT_FAILURE)
+		status = exeMonty(line, &stack, ++lN);
+
+		if (status == EXIT_FAILURE)
 			break;
 	}
 	free(line);
@@ -45,6 +42,13 @@ int main(int argc, char *argv[])
 	return (status);
 }
 
+/**
+ * exeMonty - execute a monty instruction in a line
+ * @l: line with the monty instruction
+ * @stack: stack of vars
+ * @line_n: number of line with monty instruction
+ * Return: status of the monty instruction
+ */
 int exeMonty(char *l, stack_t **stack, int line_n)
 {
 	instruction_t instructions[] = {
@@ -76,12 +80,12 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 			status = error_checker(stack, opcode, line_n);
 
 			if (status != EXIT_FAILURE)
-				instructions[i].f(stack, line_n);							
+				instructions[i].f(stack, line_n);
 			break;
 		}
 	}
 	if (!instructions[i].opcode)
-		status = error_checker(stack, opcode , line_n);
+		status = error_checker(stack, opcode, line_n);
 
 	free_split(file_tokens, 2);
 	return (status);

@@ -13,12 +13,12 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
-void add_node_stack(stack_t **stack, unsigned int line_number);
+void add_node_stack(stack_t **stack, int number);
 void delete_node_stack(stack_t **stack);
 void free_stack(stack_t **stack);
 #endif

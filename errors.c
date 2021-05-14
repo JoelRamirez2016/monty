@@ -29,7 +29,7 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 		{
 			fprintf(stderr, "L<%u>: can't pint, stack empty\n", line_n);
 			status = EXIT_FAILURE;
-                }
+		}
 	}
 	else
 	{
