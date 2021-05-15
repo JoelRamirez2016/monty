@@ -5,7 +5,7 @@
  * @stack: stack
  * @line_number: second argument of input
  */
-void add(stack_t **stack, __attribute__((unused)) unsigned int line_number)
+void add(stack_t **stack, unsigned int line_number)
 {
 	if (*stack && (*stack)->next)
 	{
@@ -14,7 +14,7 @@ void add(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	}
 	else
 	{
-		printf("L<line_number>: can't add, stack too short\n");
+		printf("L%u: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }
