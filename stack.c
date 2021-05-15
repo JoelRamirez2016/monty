@@ -19,7 +19,7 @@ stack_t *add_node_stack(stack_t **stack, int number)
 
 	if (*stack)
 		(*stack)->prev = new;
-		*stack = new;
+	*stack = new;
 
 	return (new);
 }

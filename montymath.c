@@ -5,7 +5,7 @@
  * @stack: stack
  * @line_number: second argument of input
  */
-void add(stack_t **stack, unsigned int line_number)
+void add(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
 	(*stack)->next->n = (*stack)->n + (*stack)->next->n;
 	delete_node_stack(stack);
