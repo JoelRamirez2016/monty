@@ -30,16 +30,14 @@ stack_t *add_node_stack(stack_t **stack, int number)
  * Return: 1 if node is deleted, 0 otherwise
  */
 int delete_node_stack(stack_t **stack)
+{
 	stack_t *curr = *stack;
 
 	if (!*stack)
 		return (0);
 
 	*stack = (*stack)->next;
-
-	if (*stack)
-		(*stack)->prev = NULL;
-
+	(*stack)->prev = NULL;
 	free(curr);
 
 	return (1);

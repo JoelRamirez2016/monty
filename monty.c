@@ -7,14 +7,8 @@
  */
 void push(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
-	if (!is_number(file_tokens[1]))
+	if (!add_node_stack(stack, atoi(file_tokens[1])))
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		file_tokens[2][0] = EXIT_FAILURE;
-	}
-	else if (!add_node_stack(stack, atoi(file_tokens[1])))
-	{
-		fprintf(stderr, "Error: malloc failed\n");
 		file_tokens[2][0] = '1';
 	}
 }
@@ -49,6 +43,5 @@ void pint(stack_t **stack, __attribute__((unused)) unsigned int line_number)
  */
 void pop(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 {
-	if (!delete_node_stack(stack))
-		file_tokens[2][0] = '1';
+	delete_node_stack(stack);
 }
