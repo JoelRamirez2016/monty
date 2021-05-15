@@ -35,9 +35,9 @@ int delete_node_stack(stack_t **stack)
 
 	if (!*stack)
 		return (0);
-
 	*stack = (*stack)->next;
-	(*stack)->prev = NULL;
+	if (*stack)
+		(*stack)->prev = NULL;
 	free(curr);
 
 	return (1);
