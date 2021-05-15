@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 		if (file_tokens[2][0] == '1' || status == EXIT_FAILURE)
 		{
 			status = EXIT_FAILURE;
+			free(file_tokens[2]);
 			break;
 		}
 		free(file_tokens[2]);
