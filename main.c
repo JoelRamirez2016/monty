@@ -61,8 +61,8 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 /*
  *		{"swap", swap},
  */		{"pop", pop},
-/*		{"add", add},
-*		{"nop", nop},
+		{"add", add},
+/*		{"nop", nop},
 *		{"sub", sub},
 *		{"div", _div},
 *		{"mul", mul},
@@ -87,7 +87,6 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 			if (strcmp(instructions[i].opcode, opcode) == 0)
 			{
 				*status = (char) error_checker(stack, opcode, line_n);
-
 				if (*status != EXIT_FAILURE)
 					instructions[i].f(stack, line_n);
 				if (file_tokens[2][0] == '1')
@@ -97,6 +96,5 @@ int exeMonty(char *l, stack_t **stack, int line_n)
 	}
 	if (opcode && !instructions[i].opcode)
 		*status = (char) error_checker(stack, opcode, line_n);
-
 	return (*status);
 }
