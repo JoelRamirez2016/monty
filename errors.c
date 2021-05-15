@@ -25,6 +25,11 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 	}
 	else if (opcode && strcmp(opcode, "swap") == 0)
         {
+		if (!(*stack && (*stack)->next))
+		{
+			fprintf(stderr, "L%u: can't swap, stack too short\n", line_n);
+			status = EXIT_FAILURE;
+		}
         }
 	else if (opcode && strcmp(opcode, "add") == 0)
         {
