@@ -7,16 +7,8 @@
  */
 void add(stack_t **stack, unsigned int line_number)
 {
-	if (*stack && (*stack)->next)
-	{
-		(*stack)->next->n = (*stack)->n + (*stack)->next->n;
-		delete_node_stack(stack);
-	}
-	else
-	{
-		printf("L%u: can't add, stack too short\n", line_number);
-		exit(EXIT_FAILURE);
-	}
+	(*stack)->next->n = (*stack)->n + (*stack)->next->n;
+	delete_node_stack(stack);
 }
 /**
  * sub - substracts top element of stack from the 2nd top element

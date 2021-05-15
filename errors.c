@@ -25,6 +25,11 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 	}
 	else if (opcode && strcmp(opcode, "add") == 0)
         {
+		if (!(*stack && (*stack)->next))
+		{
+			printf("L%u: can't add, stack too short\n", line_n);
+			exit(EXIT_FAILURE);
+		}
         }
 	else if (opcode && strcmp(opcode, "pint") == 0)
 	{
