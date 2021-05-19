@@ -24,7 +24,7 @@ void sub(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	}
 	else
 	{
-		printf("L<line_number>: can't sub, stack too short\n");
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }

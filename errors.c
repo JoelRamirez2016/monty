@@ -23,7 +23,10 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
 	else if (opcode && strcmp(opcode, "pall") == 0)
 	{
 	}
-        else if (opcode && strcmp(opcode, "nop") == 0)
+	else if (opcode && strcmp(opcode, "nop") == 0)
+	{
+	}
+        else if (opcode && strcmp(opcode, "sub") == 0)
         {
         }
 	else if (opcode && strcmp(opcode, "swap") == 0)
