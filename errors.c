@@ -35,7 +35,7 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
         {
 		if (!(*stack && (*stack)->next))
 		{
-			printf("L%u: can't add, stack too short\n", line_n);
+			fprintf(stderr, "L%u: can't add, stack too short\n", line_n);
 			status = EXIT_FAILURE;
 		}
         }
