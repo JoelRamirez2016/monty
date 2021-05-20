@@ -29,6 +29,15 @@ int error_checker(stack_t **stack, char *opcode, int line_n)
         else if (opcode && strcmp(opcode, "sub") == 0)
         {
         }
+	else if (opcode && strcmp(opcode, "div") == 0)
+	{
+	}
+	else if (opcode && strcmp(opcode, "mod") == 0)
+	{
+	}
+	else if (opcode && strcmp(opcode, "mul") == 0)
+	{
+	}
 	else if (opcode && strcmp(opcode, "swap") == 0)
         {
 		if (!(*stack && (*stack)->next))

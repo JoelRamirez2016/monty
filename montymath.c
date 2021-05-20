@@ -39,7 +39,7 @@ void _div(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	{
 		if ((*stack)->n == 0)
 		{
-			printf("L<line_number>: division by zero\n");
+			fprintf(stderr, "L%u: division by zero\n", line_number);
 			exit(EXIT_FAILURE);
 		}
 		(*stack)->next->n = (*stack)->next->n / (*stack)->n;
@@ -47,7 +47,7 @@ void _div(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	}
 	else
 	{
-		printf("L<line_number>: can't div, stack too short\n");
+		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -65,7 +65,7 @@ void mul(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	}
 	else
 	{
-		printf("L<line_number>: can't mul, stack too short\n");
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -80,7 +80,7 @@ void mod(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	{
 		if ((*stack)->n == 0)
 		{
-			printf("L<line_number>: division by zero\n");
+			fprintf(stderr, "L%u: division by zero\n", line_number);
 			exit(EXIT_FAILURE);
 		}
 		(*stack)->next->n = (*stack)->next->n % (*stack)->n;
@@ -88,7 +88,7 @@ void mod(stack_t **stack, __attribute__((unused)) unsigned int line_number)
 	}
 	else
 	{
-		printf("L<line_number>: can't mod, stack too short\n");
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 }
